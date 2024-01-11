@@ -24,3 +24,17 @@ body {
     justify-content: center;
     align-items: center;
 }
+
+.map {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+#currentLocation {
+    position: absolute;
+    top: 50px;
+    right: 20px;
+    padding: 10px;
+    z-index: 400;
+}

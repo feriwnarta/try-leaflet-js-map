@@ -14,3 +14,4 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/',\App\Livewire\Home::class);
+Route::get('/maps',\App\Livewire\Maps::class);
