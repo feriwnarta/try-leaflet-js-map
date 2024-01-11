@@ -1,0 +1,22 @@
+:root {
+    font-size: 16px;
+}
+
+.mobile-nav {
+    background: white;
+    position: fixed;
+    border: 1px solid #e8e8e8;
+    bottom: 0;
+    height: 65px;
+    display: flex;
+    justify-content: space-around;
+    width: 90%;
+    border-radius: 22px;
+    margin: 20px;
+}
+
+.bloc-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
