@@ -74,27 +74,28 @@ function getLocation(routingControl) {
             const latitude = position.coords.latitude;
             const longitude = position.coords.longitude;
             const newWayPoint = L.latLng(latitude, longitude);
+
             // Get existing waypoints
             const existingWaypoints = routingControl.getWaypoints();
 
-// Sort the waypoints by distance from the last waypoint
+            // Sort the waypoints by distance from the last waypoint
             existingWaypoints.sort((a, b) => b.distance - a.distance);
 
-// Add the new waypoint to the appropriate position
+            // Add the new waypoint to the appropriate position
             if (existingWaypoints[0] === newWayPoint) {
                 existingWaypoints.push(newWayPoint); // Add to the end if it's already the first
             } else {
                 existingWaypoints.unshift(newWayPoint); // Add to the beginning otherwise
             }
 
-// Set the updated waypoints
+            // Set the updated waypoints
             routingControl.setWaypoints(existingWaypoints);
 
+            const nearestWaypoint = existingWaypoints.reduce((a, b) => a.distance < b.distance ? a : b);
 
+            const distance = Math.sqrt((nearestWaypoint.lat - newWayPoint.lat)^2 + (nearestWaypoint.lng - newWayPoint.lng)^2);
 
-
-
-
+            console.log(`${distance} KM`);
         });
     } else {
         alert('error');
