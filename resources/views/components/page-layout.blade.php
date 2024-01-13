@@ -2,7 +2,11 @@
 
     <div id="content">
         <div id="page">
-            {{ $slot }}
+            <div class="container">
+                <div class="row">
+                    {{ $slot }}
+                </div>
+            </div>
         </div>
 
         <div id="bottom-bar">

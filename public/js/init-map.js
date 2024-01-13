@@ -93,6 +93,7 @@ function getLocation(routingControl) {
             // Set the updated waypoints
             routingControl.setWaypoints(existingWaypoints);
 
+
             const existingWaypointsWithDistances = existingWaypoints.map(waypoint => {
                 let distance = (waypoint.latLng !== undefined) ? waypoint.latLng : waypoint;
                 return  newWayPoint.distanceTo(distance);
