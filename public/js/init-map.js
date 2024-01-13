@@ -27,6 +27,7 @@ function initMaps() {
             L.latLng(-6.171220, 106.681664), // Waypoint pertama
             L.latLng(-6.152721, 106.62), // Waypoint kedua
             L.latLng(-6.153290, 106.624580) // Waypoint ketiga
+
         ],
         routeWhileDragging: true,
 
@@ -69,8 +70,11 @@ function initMaps() {
 
 
 function getLocation(routingControl) {
+
     if (navigator.geolocation) {
+
         navigator.geolocation.getCurrentPosition((position) => {
+
             const latitude = position.coords.latitude;
             const longitude = position.coords.longitude;
             const newWayPoint = L.latLng(latitude, longitude);
@@ -81,21 +85,32 @@ function getLocation(routingControl) {
             // Sort the waypoints by distance from the last waypoint
             existingWaypoints.sort((a, b) => b.distance - a.distance);
 
-            // Add the new waypoint to the appropriate position
-            if (existingWaypoints[0] === newWayPoint) {
-                existingWaypoints.push(newWayPoint); // Add to the end if it's already the first
-            } else {
-                existingWaypoints.unshift(newWayPoint); // Add to the beginning otherwise
+            // Check if the new waypoint is already the first
+            if (existingWaypoints[0] !== newWayPoint) {
+                existingWaypoints.splice(1, 0, newWayPoint);
             }
 
             // Set the updated waypoints
             routingControl.setWaypoints(existingWaypoints);
 
-            const nearestWaypoint = existingWaypoints.reduce((a, b) => a.distance < b.distance ? a : b);
+            const existingWaypointsWithDistances = existingWaypoints.map(waypoint => {
+                let distance = (waypoint.latLng !== undefined) ? waypoint.latLng : waypoint;
+                return  newWayPoint.distanceTo(distance);
+            });
 
-            const distance = Math.sqrt((nearestWaypoint.lat - newWayPoint.lat)^2 + (nearestWaypoint.lng - newWayPoint.lng)^2);
+            const filteredDistance = existingWaypointsWithDistances.filter(distance => distance !== 0);
+            console.log(filteredDistance);
 
-            console.log(`${distance} KM`);
+
+            const closestWaypoint = filteredDistance.reduce((closest, waypoint) => {
+                if (waypoint < closest) {
+                    return waypoint;
+                }
+                return closest;
+            });
+
+            alert(closestWaypoint);
+
         });
     } else {
         alert('error');

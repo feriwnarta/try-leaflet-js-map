@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use Illuminate\Support\Facades\Log;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
@@ -11,4 +12,5 @@ class Maps extends Component
     {
         return view('livewire.maps');
     }
+
 }
